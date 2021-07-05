@@ -16,11 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-##docker build -t ubi8Java11/appname:1.0 -f C:\Docker\Dockerfile --compress --build-arg BUILD_VERSION=1.0-b10 C:\Docker\
-##docker run -d -p 8888:42666 ubi8Java11/appname:1.0
-
-
-#BUILD IMAGE AdoptOpenJDK11 Compile Maven 3.6.3 Git
 
 FROM registry.access.redhat.com/ubi8/ubi:8.4
 
