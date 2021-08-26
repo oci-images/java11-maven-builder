@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Maven Builder AdoptOpenJDK11"
 
-export MAVEN_ARGS="-e -B -DskipTests -Djava.net.preferIPv4Stack=true -Dmaven.repo.local=/opt/maven/.m2 -Dverbose -DoutputFile=build.log"
+export MAVEN_ARGS="-e -B -DskipTests -Djava.net.preferIPv4Stack=true -Dmaven.repo.local=/opt/maven/.m2 -s /configuration/settings.xml --log-file=/workspace/source/build.log"
 if [ ! -z "$MVN_ARGS" ]
 then	
 	export MAVEN_ARGS="$MAVEN_ARGS $MVN_ARGS"
@@ -14,11 +14,23 @@ else
 	export MAVEN_SSL="-Dmaven.wagon.http.ssl.insecure=$MVN_SSL"
 fi
 
-if [ ! -z "$MVN_GOALS" ]
+if [ -z "$MVN_GOALS" ]
 then	
 	export MAVEN_GOALS="clean install"
 else	
 	export MAVEN_GOALS="$MVN_GOALS"
 fi
+
+if [ -z "$IMAGE_BASE" ]
+then	
+	export OCI_IMAGE="-i 15.192.41.203:8083/bapis/arq/ubi8-jre11-minimal:latest"
+else	
+	export OCI_IMAGE="-i $IMAGE_BASE"
+fi
+
 echo "INFO exec mvn $MAVEN_ARGS $MAVEN_SSL $MAVEN_GOALS"
 mvn $MAVEN_ARGS $MAVEN_SSL $MAVEN_GOALS
+echo "View logs in build.log"
+cat /workspace/source/build.log
+echo "Generated Dockerfile"
+java -jar /opt/bapis/toolkit-2021.03-fullstack.jar create-dockerfile $OCI_IMAGE -w . -Y .
