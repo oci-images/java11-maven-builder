@@ -1,4 +1,4 @@
-# AdoptOpenJDK11 - OCI Image Maven Builder
+# Adoptium Temurin OpenJDK11 - OCI Image Maven Builder
 Custom Images for Java11 Maven Builder for Tekton Task
 
 Image build with default charset _en_US.UTF-8_
