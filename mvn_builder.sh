@@ -21,16 +21,8 @@ else
 	export MAVEN_GOALS="$MVN_GOALS"
 fi
 
-if [ -z "$IMAGE_BASE" ]
-then	
-	export OCI_IMAGE="-i 15.192.41.203:8083/bapis/arq/ubi8-jre11-minimal:latest"
-else	
-	export OCI_IMAGE="-i $IMAGE_BASE"
-fi
 
 echo "INFO exec mvn $MAVEN_ARGS $MAVEN_SSL $MAVEN_GOALS"
 mvn $MAVEN_ARGS $MAVEN_SSL $MAVEN_GOALS
 echo "View logs in build.log"
 cat /workspace/source/build.log
-echo "Generated Dockerfile"
-java -jar /opt/bapis/toolkit-2021.03-fullstack.jar create-dockerfile $OCI_IMAGE -w . -Y .
