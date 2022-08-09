@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-FROM registry.access.redhat.com/ubi8/ubi:8.5
+FROM registry.access.redhat.com/ubi8/ubi:8.6
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
 ARG MAVEN_VERSION=3.6.3
@@ -29,28 +29,28 @@ RUN dnf install -y tzdata openssl curl ca-certificates fontconfig glibc-langpack
 
 LABEL name="Builder Cloud Apps Adoptium Temurin OpenJDK11" \
       vendor="Adoptium Temurin OpenJDK11" \
-      version="jdk-11.0.13+8" \
+      version="jdk-11.0.16+8" \
       release="11" \
       run="docker run --rm -ti <image_name:tag> -v /workspace/source" \
       summary="Adoptium Temurin OpenJDK11 Docker Image for OpenJDK with hotspot and ubi8" \
       description="For more information on this image please see "
 	  
-ENV JAVA_VERSION jdk-11.0.13+8
+ENV JAVA_VERSION jdk-11.0.16+8
 
 RUN set -eux; \
     ARCH="$(uname -m)"; \
     case "${ARCH}" in \
        aarch64|arm64) \
-         ESUM='a77013bff10a5e9c59159231dd5c4bd071fc4c24beed42bd49b82803ba9506ef'; \
-         BINARY_URL='https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.13%2B8/OpenJDK11U-jdk_aarch64_linux_hotspot_11.0.13_8.tar.gz'; \
+         ESUM='bb345cabf3e305ff3ce390918d5f69e5cfbced3d9844e0b0531c2690f9ed06ef'; \
+         BINARY_URL='https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16%2B8/OpenJDK11U-jdk_aarch64_linux_hotspot_11.0.16_8.tar.gz'; \
          ;; \
        ppc64el|ppc64le) \
-         ESUM='82f14cda71cff99c878bf8400598a87235adb6c81b0337f7077c27e5cac1190c'; \
-         BINARY_URL='https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.13%2B8/OpenJDK11U-jdk_ppc64le_linux_hotspot_11.0.13_8.tar.gz'; \
+         ESUM='40dea12da26443ad731f9348187b65451711659337e83b6409a2bcf0f057cd2a'; \
+         BINARY_URL='https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16%2B8/OpenJDK11U-jdk_ppc64le_linux_hotspot_11.0.16_8.tar.gz'; \
          ;; \
        amd64|x86_64) \
-         ESUM='3b1c0c34be4c894e64135a454f2d5aaa4bd10aea04ec2fa0c0efe6bb26528e30'; \
-         BINARY_URL='https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.13%2B8/OpenJDK11U-jdk_x64_linux_hotspot_11.0.13_8.tar.gz'; \
+         ESUM='f79506f80c796d8e6a382f00bd8c528a330c5e29581aaf5cb61e1831742d166f'; \
+         BINARY_URL='https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16%2B8/OpenJDK11U-jdk_x64_linux_hotspot_11.0.16_8.tar.gz'; \
          ;; \
        *) \
          echo "Unsupported arch: ${ARCH}"; \
